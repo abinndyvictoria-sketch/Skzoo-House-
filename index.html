@@ -2,107 +2,43 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#b8d9ef">
-<title>SKZOO House</title>
-<style>
-:root{--ink:#443b56;--glass:#fffaf0d9;--violet:#9274d7;--sky:#b8d9ef}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#b8d9ef;font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif;color:var(--ink);overscroll-behavior:none}
-button{font:inherit;color:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
-button:active{transform:scale(.94)}
-#app{position:relative;width:100%;height:100%;height:100dvh;overflow:hidden;background:linear-gradient(#b9dff0 0%,#e7f3e8 100%)}
-.main{position:absolute;inset:0;display:block}
-.scene-wrap{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#b9dff0 0%,#e9f1dc 62%,#8dbd7e 100%)}
-.scene{position:absolute;inset:0;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#b9dff0 0%,#d9edf0 44%,#d8e8cc 45%,#a6c990 100%);transform-origin:center center}
-.scene:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,#fff8 0%,transparent 40%);z-index:0;pointer-events:none}
-.wall{position:absolute;z-index:1;left:-4%;right:-4%;top:-8%;height:70%;border-radius:0 0 48% 48% / 0 0 7% 7%;background:linear-gradient(135deg,#f7e7df 0%,#f5e7e8 48%,#d8e6f5 100%);box-shadow:inset 0 -12px 0 #d8c7db,0 12px 30px #5d647333;transform:none;border:0}
-.wall:before{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#d8a9c7,#b4a0df,#a6cfe4,#e6b4cc);box-shadow:0 5px 0 #ffffff70}
-.wall:after{content:"";position:absolute;left:0;right:0;top:0;height:18%;background:linear-gradient(#fff9,transparent)}
-.wall-art{z-index:2;position:absolute;top:13%;left:11%;width:13%;height:16%;min-width:66px;min-height:65px;border:7px solid #fffaf3;border-radius:5px;background:linear-gradient(145deg,#f4b7cf,#c9b5ef 55%,#a7d9e9);display:grid;place-items:center;color:#fff;font-size:clamp(14px,2vw,25px);line-height:1.1;text-align:center;font-weight:1000;box-shadow:0 8px 14px #685a6c24;transform:rotate(-3deg)}
-.window{z-index:2;position:absolute;top:10%;right:12%;width:26%;height:32%;border:9px solid #fffaf4;border-radius:9px;background:linear-gradient(180deg,#9ed5f1,#cce9f5 60%,#b6d7a0 61%,#82b88a);box-shadow:0 8px 18px #67728a22;overflow:hidden}
-.window:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 23%,#fff7 0 9%,transparent 10%),linear-gradient(90deg,transparent 48%,#fffaf4 48% 52%,transparent 52%),linear-gradient(180deg,transparent 48%,#fffaf4 48% 52%,transparent 52%)}
-.window:after{content:"";position:absolute;left:-8%;right:-8%;bottom:-4%;height:28%;background:#8cbe8c;border-radius:50% 50% 0 0}
-.shelf{z-index:3;position:absolute;top:32%;left:10%;width:23%;height:10px;border-radius:8px;background:#bd8f79;box-shadow:0 5px 0 #956d66,0 9px 12px #5243541c}
-.shelf:before{content:"🌱　♫　🧸";position:absolute;bottom:100%;left:4%;font-size:clamp(15px,2.4vw,28px);white-space:nowrap;filter:drop-shadow(0 3px 2px #63506a22)}
-.tv-unit{z-index:3;position:absolute;right:14%;top:36%;width:25%;height:23%;display:flex;align-items:center;flex-direction:column;justify-content:flex-end}
-.tv{width:100%;height:84%;border:7px solid #f8f0ed;border-radius:12px;background:linear-gradient(145deg,#6f7cbb,#b7a7e4 55%,#87d1e1);box-shadow:0 9px 0 #c3a5b7,0 13px 20px #594d6725;display:grid;place-items:center;font-size:clamp(16px,3vw,32px);font-weight:1000;color:#fff;text-shadow:0 2px 4px #6d6890}
-.tv-stand{width:68%;height:18%;background:linear-gradient(#c18f82,#a87571);border-radius:0 0 9px 9px}
-.floor{position:absolute;z-index:1;left:-15%;right:-15%;bottom:-18%;height:65%;background:repeating-linear-gradient(90deg,transparent 0 12.2%,#d9a98e25 12.4% 12.7%),repeating-linear-gradient(0deg,#efd0b6 0 13.8%,#d7ad98 14% 14.5%);transform:perspective(500px) rotateX(7deg);transform-origin:top;box-shadow:inset 0 15px 35px #9a6d6c22}
-.rug{z-index:2;position:absolute;left:23%;bottom:4%;width:54%;height:32%;border-radius:50%;background:radial-gradient(ellipse,#f6e5ed 0 54%,#d4bde7 55% 61%,#fff4f0 62% 66%,#c8b3de 67%);box-shadow:0 10px 12px #685c6a24;display:grid;place-items:center;color:#bd91d4;font-size:clamp(25px,5vw,52px);transform:rotateX(8deg)}
-.sofa{z-index:3;position:absolute;left:24%;bottom:27%;width:47%;height:20%;border-radius:24px 24px 17px 17px;background:linear-gradient(145deg,#dca4c6,#b47bb0 65%,#986eaa);box-shadow:0 12px 0 #986a9d,0 19px 18px #65526a24;border:4px solid #f8d6e7}
-.sofa:before{content:"";position:absolute;left:4%;right:4%;top:-26%;height:58%;border-radius:24px 24px 14px 14px;background:linear-gradient(120deg,#e8b8d1,#c48fc2);border:4px solid #f8d6e7;box-shadow:inset 0 -5px 0 #ac79a8}
-.sofa:after{content:"";position:absolute;left:5%;top:8%;width:24%;height:56%;border-radius:12px;background:#f3d6e8;box-shadow:calc(270% + 5px) 0 0 #f3d6e8}
-.table{z-index:5;position:absolute;left:42%;bottom:17%;width:19%;height:7%;border-radius:50%;background:linear-gradient(#fff1d8,#d6a77f 62%,#b7826e 64%);box-shadow:0 8px 0 #b47c6a,0 13px 12px #5b4a5b25}
-.table:before{content:"🍓";position:absolute;left:34%;top:-120%;font-size:clamp(17px,2.7vw,29px);filter:drop-shadow(0 2px 1px #0002)}
-.plant{z-index:4;position:absolute;bottom:29%;left:8%;font-size:clamp(38px,6vw,72px);filter:drop-shadow(0 7px 5px #5c635022)}
-.lamp{z-index:4;position:absolute;bottom:29%;right:8%;font-size:clamp(32px,5vw,58px);filter:drop-shadow(0 6px 5px #5c635022)}
-.char{position:absolute;z-index:8;width:clamp(48px,7.5vw,92px);height:clamp(58px,9vw,108px);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;user-select:none;touch-action:none;filter:drop-shadow(0 8px 4px #58475a28);transition:left .35s ease,bottom .35s ease;animation:bob 3s ease-in-out infinite}
-.char:active{cursor:grabbing}.char .face{font-size:clamp(38px,6.4vw,76px);line-height:1;filter:drop-shadow(0 3px 1px #fff7)}.char .name{font-size:clamp(9px,1.2vw,12px);font-weight:800;background:#fffaf0eF;padding:4px 8px;border-radius:99px;white-space:nowrap;border:1px solid #fff;box-shadow:0 3px 9px #5e4b6620;color:#51425f}
-.char.selected{filter:drop-shadow(0 0 8px #fff) drop-shadow(0 8px 4px #58475a28)}.char.selected .name{background:#f5e5ff;border-color:#bda2e8;color:#6c4a91}
-@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -5px}}
-.scene-head{position:absolute;z-index:12;top:max(10px,env(safe-area-inset-top));left:12px;pointer-events:none}
-.room-label{font-weight:900;background:#fffaf0dc;border:1px solid #fff;border-radius:99px;padding:8px 13px;backdrop-filter:blur(10px);box-shadow:0 4px 14px #4b52631b;font-size:clamp(11px,1.5vw,14px);color:#65546f}
-.interaction-tip{display:none}
-.room-dock{position:absolute;z-index:30;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:clamp(5px,1.4vw,12px);padding:8px 10px;background:#fffaf0e8;border:1px solid #fff;border-radius:23px;box-shadow:0 8px 28px #4b52632b;backdrop-filter:blur(15px);max-width:calc(100vw - 18px)}
-.room-dock .room-btn{position:relative;width:clamp(42px,6.5vw,58px);height:clamp(42px,6.5vw,58px);padding:0;display:grid;place-items:center;border-radius:17px;background:#eee5f4;border:2px solid transparent;box-shadow:inset 0 -3px 0 #d8c9e5;flex-shrink:0;transition:background .15s,transform .15s}
-.room-dock .room-btn span{font-size:clamp(22px,3.4vw,32px);line-height:1;filter:drop-shadow(0 2px 1px #fff)}
-.room-dock .room-btn.active{background:linear-gradient(145deg,#c8b4f1,#a6d7e7);border-color:#fff;box-shadow:0 4px 12px #9c83c65c,inset 0 -3px 0 #a08ac8}
-.room-dock .room-btn:after{content:attr(title);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(3px);font-size:10px;font-weight:800;white-space:nowrap;background:#fffaf0ee;border-radius:99px;padding:5px 8px;opacity:0;pointer-events:none;transition:opacity .15s}
-.room-dock .room-btn.active:after{opacity:1}
-.toast{position:absolute;z-index:40;left:50%;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 76px);transform:translateX(-50%);background:#fffaf0f2;border:1px solid #fff;border-radius:99px;padding:10px 15px;font-size:12px;font-weight:800;box-shadow:0 8px 24px #4b52632b;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap;color:#665272}.toast.show{opacity:1}
-@media(orientation:portrait){.wall{height:62%}.wall-art{top:13%;left:6%;width:16%;height:12%;min-width:50px;min-height:50px;border-width:5px}.window{top:11%;right:6%;width:30%;height:22%;border-width:6px}.shelf{top:31%;left:6%;width:27%}.tv-unit{top:35%;right:6%;width:29%;height:18%}.sofa{left:15%;width:70%;bottom:28%;height:17%}.rug{left:8%;width:84%;height:28%;bottom:5%}.plant{left:2%;bottom:28%}.lamp{right:2%;bottom:28%}.char{width:clamp(46px,12vw,70px);height:clamp(56px,14vw,82px)}.char .face{font-size:clamp(36px,10vw,55px)}.room-dock{gap:4px;padding:6px 7px;bottom:max(8px,env(safe-area-inset-bottom))}.room-dock .room-btn{width:clamp(36px,10vw,47px);height:clamp(38px,10vw,48px);border-radius:13px}.room-dock .room-btn span{font-size:23px}.room-dock .room-btn:after{font-size:9px}.table{bottom:17%;left:39%;width:22%}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17152b">
+<title>SKZOO House — Stay Universe</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body><div id="app"><main class="main">
-<section class="scene-wrap" aria-label="Casa dos SKZOO">
-<div class="scene-head"><div class="room-label" id="sceneTitle">🛋️ Sala de estar</div></div>
-<div class="scene" id="scene">
-<div class="wall" id="wall"></div><div class="wall-art" id="wallArt">SKZ<br>✦</div><div class="window" id="window"></div><div class="shelf" id="shelf"></div><div class="tv-unit" id="tvUnit"><div class="tv" id="tv">♫ SKZ ♫</div><div class="tv-stand"></div></div>
-<div class="plant" id="plant">🪴</div><div class="lamp" id="lamp">💡</div><div class="floor" id="floor"></div><div class="rug" id="rug">✦</div><div class="sofa" id="sofa"></div><div class="table" id="table"></div><div id="characters"></div>
-</div><div class="toast" id="toast"></div>
+<body>
+<main class="phone">
+<header class="top">
+  <div class="logo"><span>✦</span><div><b>SKZOO HOUSE</b><small>STAY UNIVERSE</small></div></div>
+  <div class="coins">✧ <b>500</b></div>
+</header>
+<section class="welcome"><div><small>SEU MUNDO, SUAS REGRAS</small><h1 id="roomTitle">Quarto</h1><p id="roomDesc">Um cantinho só seu, cheio de estrelas.</p></div><div class="level">✦ NÍVEL 01</div></section>
+<section id="scene" class="scene bedroom" aria-label="Ambiente selecionado">
+  <div class="stars">✦　⋆　✧　　 ✦</div>
+  <div class="window"><div class="moon"></div><i>✦</i><b>✧</b></div>
+  <div class="poster">STRAY<br><strong>KIDS</strong><small>EVERYWHERE ALL AROUND THE WORLD</small></div>
+  <div class="shelf"><span>♫</span><span>✦</span><span>♡</span></div>
+  <div class="bed"><div class="pillow"></div><div class="blanket"><span>✦</span><b>STAY</b><span>♡</span></div></div>
+  <div class="rug">✧</div><div class="plant">♣</div><div class="lamp">☾</div>
+  <div class="scene-caption" id="sceneCaption">✦ MEU REFÚGIO ✦</div>
 </section>
-<nav class="room-dock" id="rooms" aria-label="Trocar cômodo">
-<button class="room-btn active" data-room="living" aria-label="Sala de estar" title="Sala"><span>🛋️</span></button>
-<button class="room-btn" data-room="bedroom" aria-label="Quartos" title="Quartos"><span>🛏️</span></button>
-<button class="room-btn" data-room="kitchen" aria-label="Cozinha" title="Cozinha"><span>🍳</span></button>
-<button class="room-btn" data-room="bathroom" aria-label="Banheiro" title="Banheiro"><span>🚿</span></button>
-<button class="room-btn" data-room="yard" aria-label="Quintal" title="Quintal"><span>🌳</span></button>
-<button class="room-btn" data-room="games" aria-label="Sala de jogos" title="Jogos"><span>🎮</span></button>
-</nav></main></div>
-<script>
-const mascots=[
-{id:'wolf',name:'Wolf Chan',face:'🐺',x:31,b:16},
-{id:'leebit',name:'Leebit',face:'🐰',x:40,b:13},
-{id:'dwaekki',name:'DWAEKKI',face:'🐷',x:49,b:15},
-{id:'jiniret',name:'Jiniret',face:'🦦',x:58,b:14},
-{id:'quokka',name:'HAN QUOKKA',face:'🐿️',x:67,b:16},
-{id:'bbokari',name:'BbokAri',face:'🐥',x:34,b:25},
-{id:'puppym',name:'PuppyM',face:'🐶',x:52,b:25},
-{id:'foxiny',name:'FoxI.Ny',face:'🦊',x:69,b:25}
-];
-const roomInfo={
-living:{title:'🛋️ Sala de estar',wall:'linear-gradient(135deg,#f7e7df,#f5e7e8 48%,#d8e6f5)',floor:'repeating-linear-gradient(90deg,transparent 0 12.2%,#d9a98e25 12.4% 12.7%),repeating-linear-gradient(0deg,#efd0b6 0 13.8%,#d7ad98 14% 14.5%)',wallArt:'SKZ<br>✦',window:true,sofa:true,tv:'♫ SKZ ♫',rug:'✦',plant:'🪴',lamp:'💡'},
-bedroom:{title:'🛏️ Quartos',wall:'linear-gradient(135deg,#dce5fb,#f5e3f1 55%,#d4e9f2)',floor:'repeating-linear-gradient(90deg,transparent 0 12.2%,#b8a9cc25 12.4% 12.7%),repeating-linear-gradient(0deg,#e9d9e7 0 13.8%,#cbb4d0 14% 14.5%)',wallArt:'SWEET<br>DREAMS',window:true,sofa:false,tv:'',rug:'☾',plant:'🪴',lamp:'🌙'},
-kitchen:{title:'🍳 Cozinha',wall:'linear-gradient(135deg,#e4f2ed,#f7ead9 55%,#d4e9f2)',floor:'repeating-linear-gradient(90deg,transparent 0 12.2%,#a6c4b525 12.4% 12.7%),repeating-linear-gradient(0deg,#e5d4bd 0 13.8%,#c5a88d 14% 14.5%)',wallArt:'YUM!<br>♡',window:true,sofa:false,tv:'🍓  🍰',rug:'✦',plant:'🌿',lamp:'💡'},
-bathroom:{title:'🚿 Banheiro',wall:'linear-gradient(135deg,#d7edf4,#e7f4f1 55%,#d7e6f7)',floor:'repeating-linear-gradient(90deg,transparent 0 12.2%,#9dbfce25 12.4% 12.7%),repeating-linear-gradient(0deg,#c6e3e9 0 13.8%,#9dc4d3 14% 14.5%)',wallArt:'SPLASH<br>♡',window:true,sofa:false,tv:'',rug:'◌',plant:'🫧',lamp:'🚿'},
-yard:{title:'🌳 Quintal',wall:'linear-gradient(180deg,#b7e1f0 0%,#e0f1d9 52%,#86c27d 53%,#69a96c 100%)',floor:'repeating-linear-gradient(90deg,transparent 0 12.2%,#57965b20 12.4% 12.7%),repeating-linear-gradient(0deg,#8fc77c 0 13.8%,#72b36c 14% 14.5%)',wallArt:'✦',window:false,sofa:false,tv:'',rug:'☘',plant:'🌳',lamp:'🌼'},
-games:{title:'🎮 Sala de jogos',wall:'linear-gradient(135deg,#d8d7f6,#e9e1f6 55%,#c6e9f1)',floor:'repeating-linear-gradient(90deg,transparent 0 12.2%,#aa9ecb25 12.4% 12.7%),repeating-linear-gradient(0deg,#d5c9e9 0 13.8%,#b9a9d8 14% 14.5%)',wallArt:'GAME<br>ON!',window:true,sofa:false,tv:'🎮',rug:'✦',plant:'🕹️',lamp:'🎧'}
-};
-let selected='leebit',room='living',toastTimer;
-const charsEl=document.getElementById('characters'),scene=document.getElementById('scene');
-function renderCharacters(){
- charsEl.innerHTML='';
- mascots.forEach(m=>{
-  const el=document.createElement('div');el.className='char'+(m.id===selected?' selected':'');el.dataset.id=m.id;el.style.left=m.x+'%';el.style.bottom=m.b+'%';el.innerHTML='<div class="face">'+m.face+'</div><div class="name">'+m.name+'</div>';el.setAttribute('role','button');el.setAttribute('aria-label','Selecionar '+m.name);
-  el.addEventListener('pointerdown',e=>{e.preventDefault();selected=m.id;charsEl.querySelectorAll('.char').forEach(n=>n.classList.toggle('selected',n.dataset.id===selected));let moved=false;const startX=e.clientX,startY=e.clientY;const move=ev=>{if(Math.abs(ev.clientX-startX)+Math.abs(ev.clientY-startY)>5)moved=true;if(moved){const rect=scene.getBoundingClientRect();const item=charsEl.querySelector('[data-id="'+m.id+'"]');if(item){m.x=Math.max(2,Math.min(91,(ev.clientX-rect.left)/rect.width*100-4));m.b=Math.max(5,Math.min(52,(rect.bottom-ev.clientY)/rect.height*100-5));item.style.transition='none';item.style.left=m.x+'%';item.style.bottom=m.b+'%';}}};const up=()=>{window.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up);const item=charsEl.querySelector('[data-id="'+m.id+'"]');if(item)item.style.transition='';if(moved)showToast(m.name+' mudou de lugar!');};window.addEventListener('pointermove',move);window.addEventListener('pointerup',up,{once:true});});
-  charsEl.appendChild(el);
- });
-}
-function setRoom(key){
- room=key;const r=roomInfo[key];document.getElementById('sceneTitle').textContent=r.title;document.getElementById('wall').style.background=r.wall;document.getElementById('floor').style.background=r.floor;document.getElementById('wallArt').innerHTML=r.wallArt;document.getElementById('window').style.display=r.window?'block':'none';document.getElementById('sofa').style.display=r.sofa?'block':'none';document.getElementById('tvUnit').style.display=r.tv?'flex':'none';document.getElementById('tv').textContent=r.tv;document.getElementById('rug').textContent=r.rug;document.getElementById('plant').textContent=r.plant;document.getElementById('lamp').textContent=r.lamp;document.getElementById('shelf').style.display=key==='yard'?'none':'block';document.getElementById('table').style.display=key==='living'?'block':'none';document.querySelectorAll('.room-btn').forEach(b=>b.classList.toggle('active',b.dataset.room===key));showToast(r.title.replace(/^\S+\s/,''));}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1300)}
-document.querySelectorAll('.room-btn').forEach(b=>b.addEventListener('click',()=>setRoom(b.dataset.room)));
-renderCharacters();
-</script></body></html>
+<section class="status">
+  <div class="status-head"><b>PAINEL DA CASINHA</b><span>PRÉVIA DA INTERFACE</span></div>
+  <div class="bars"><div><span>♡ Fome</span><i><em style="width:80%"></em></i></div><div><span>✧ Higiene</span><i><em style="width:92%"></em></i></div><div><span>ϟ Energia</span><i><em style="width:74%"></em></i></div><div><span>♫ Diversão</span><i><em style="width:65%"></em></i></div></div>
+  <small class="note">Os personagens serão adicionados em uma etapa futura.</small>
+</section>
+<section class="explore"><div class="explore-title"><div><small>EXPLORE A CASINHA</small><h2>Escolha um ambiente</h2></div><span>01 <i>/ 05</i></span></div>
+<div class="rooms">
+<button class="room active" data-room="bedroom"><span class="thumb t-bedroom">☾<i>✦</i></span><span><b>Quarto</b><small>Descansar & decorar</small></span><strong>›</strong></button>
+<button class="room" data-room="games"><span class="thumb t-games">🎮<i>♫</i></span><span><b>Sala de jogos</b><small>Brincar & competir</small></span><strong>›</strong></button>
+<button class="room" data-room="kitchen"><span class="thumb t-kitchen">♨<i>♡</i></span><span><b>Cozinha</b><small>Inventar receitas</small></span><strong>›</strong></button>
+<button class="room" data-room="bathroom"><span class="thumb t-bathroom">≈<i>✧</i></span><span><b>Banheiro</b><small>Banho & cuidados</small></span><strong>›</strong></button>
+<button class="room" data-room="yard"><span class="thumb t-yard">☼<i>♣</i></span><span><b>Quintal</b><small>Ar livre & diversão</small></span><strong>›</strong></button>
+</div></section>
+<nav class="bottom"><button class="nav-active" data-room="bedroom"><span>⌂</span><small>Casa</small></button><button data-room="games"><span>♧</span><small>Jogos</small></button><button data-room="kitchen"><span>♨</span><small>Cozinha</small></button><button id="mapBtn"><span>⌘</span><small>Mapa</small></button></nav>
+</main>
+<div class="toast" id="toast"></div>
+<dialog id="map"><div class="map-head"><div><small>STAY UNIVERSE</small><h2>Mapa da casa</h2></div><button id="closeMap">×</button></div><div class="map-grid"><button data-room="bedroom">🛏️<b>Quarto</b></button><button data-room="games">🎮<b>Sala de jogos</b></button><button data-room="kitchen">🍳<b>Cozinha</b></button><button data-room="bathroom">🚿<b>Banheiro</b></button><button data-room="yard">🌿<b>Quintal</b></button></div></dialog>
+<script src="app.js"></script>
+</body></html>
