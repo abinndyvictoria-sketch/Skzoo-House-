@@ -37,25 +37,42 @@ button:active{transform:scale(.97)}button:focus-visible{outline:2px solid var(--
 .toast{position:absolute;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#21183deF;border:1px solid #a78bfa66;border-radius:99px;padding:9px 14px;font-size:12px;box-shadow:0 8px 24px #0006;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap}.toast.show{opacity:1}
 @media(max-width:650px){#app{padding:6px;gap:6px}.main{grid-template-columns:minmax(0,1fr) 118px;gap:6px}.card{padding:7px;border-radius:12px}.card h2{font-size:11px;margin-bottom:6px}.room-btn{padding:6px 4px;gap:4px;font-size:10px}.room-emoji{font-size:15px;width:19px}.resources .pill{font-size:10px;padding:6px 7px}.brand{font-size:13px}.sub{display:none}.logo{width:30px;height:30px}.roster{gap:3px}.mini{font-size:8px}.mini span:first-child{font-size:19px}.actions button{font-size:9px;padding:7px 2px}.note{font-size:9px}.scene-head{top:6px;left:6px;right:6px}.room-label{font-size:11px;padding:6px 8px}.camera-controls button{padding:5px 7px;font-size:11px}.interaction-tip{left:6px;bottom:6px;font-size:9px}.bottom{font-size:9px}}
 @media(orientation:portrait){.main{grid-template-columns:minmax(0,1fr) 118px}.scene-wrap{min-height:0}.top{min-height:32px}}
-</style></head>
+
+/* Modo imersivo: a casa ocupa a tela inteira */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;overscroll-behavior:none;touch-action:manipulation}
+#app{width:100%;height:100dvh;height:100svh;max-width:none;margin:0;padding:0;gap:0;display:flex;flex-direction:column}
+.main{width:100%;height:100%;flex:1;min-height:0;display:flex;flex-direction:column;gap:0}
+.scene-wrap{flex:1;width:100%;height:100%;min-height:0;border:0;border-radius:0;box-shadow:none}
+.scene{inset:0;border-radius:0}
+.scene-head{top:8px;left:8px;right:auto}
+.room-label{opacity:.88;font-size:12px;padding:6px 9px}
+.camera-controls{display:none!important}
+.interaction-tip{display:none!important}
+.room-dock{position:absolute;z-index:30;left:50%;bottom:max(8px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:clamp(5px,1.4vw,12px);padding:7px 9px;background:#130d27d9;border:1px solid #c7a8ff55;border-radius:18px;box-shadow:0 8px 30px #0007;backdrop-filter:blur(12px);max-width:calc(100vw - 16px)}
+.room-dock .room-btn{width:clamp(38px,6.5vw,54px);height:clamp(38px,6.5vw,54px);padding:0;display:grid;place-items:center;border-radius:13px;background:#ffffff0b;border:1px solid #ffffff1a;box-shadow:none;flex-shrink:0}
+.room-dock .room-btn span{font-size:clamp(20px,3.4vw,29px);line-height:1}
+.room-dock .room-btn.active{background:linear-gradient(145deg,#8755d7,#3156a7);border-color:#e2d2ff;box-shadow:0 0 15px #9b7aff66}
+.toast{bottom:calc(max(8px,env(safe-area-inset-bottom)) + 72px)}
+@media(orientation:portrait){.room-dock{gap:4px;padding:6px}.room-dock .room-btn{width:clamp(34px,10vw,45px);height:clamp(36px,10vw,46px)}.room-dock .room-btn span{font-size:22px}.room-label{font-size:11px}}
+\n</style></head>
 <body><div id="app">
-<header class="top"><div class="brand"><div class="logo">✦</div><div>SKZOO HOUSE<div class="sub">8 amigos · 1 casa · infinitas histórias</div></div></div><div class="resources"><div class="pill">🪙 <b id="coins">250</b></div><div class="pill">🌟 12</div><button aria-label="Configurações" id="settings">⚙️</button></div></header>
 <main class="main">
 <section class="scene-wrap" aria-label="Cenário interativo">
-<div class="scene-head"><div class="room-label" id="sceneTitle">🛋️ Sala de estar</div><div class="camera-controls"><button id="zoomOut" aria-label="Afastar câmera">−</button><button id="zoomIn" aria-label="Aproximar câmera">＋</button><button id="resetCamera" aria-label="Centralizar câmera">⌖</button></div></div>
+<div class="scene-head"><div class="room-label" id="sceneTitle">🛋️ Sala de estar</div></div>
 <div class="scene" id="scene">
 <div class="wall" id="wall"></div><div class="wall-art" id="wallArt">SKZ<br>★</div><div class="window" id="window"></div><div class="shelf" id="shelf"></div><div class="tv-unit" id="tvUnit"><div class="tv" id="tv">♫ SKZ ♫</div><div class="tv-stand"></div></div>
 <div class="plant" id="plant">🪴</div><div class="lamp" id="lamp">💡</div><div class="floor" id="floor"></div><div class="rug" id="rug">✦</div><div class="sofa" id="sofa"></div><div class="table" id="table"></div>
 <div id="characters"></div></div>
-<div class="interaction-tip" id="tip">👆 Toque em um SKZOO para selecionar · arraste para mover</div><div class="toast" id="toast"></div>
+<div class="interaction-tip" id="tip">👆 Toque e arraste os SKZOO para mover</div><div class="toast" id="toast"></div>
 </section>
-<aside class="side">
-<div class="card"><h2>🏠 Mapa da casa</h2><div class="room-list" id="rooms">
-<button class="room-btn active" data-room="living"><span class="room-emoji">🛋️</span>Sala de estar</button><button class="room-btn" data-room="bedroom"><span class="room-emoji">🛏️</span>Quartos</button><button class="room-btn" data-room="kitchen"><span class="room-emoji">🍳</span>Cozinha</button><button class="room-btn" data-room="bathroom"><span class="room-emoji">🛁</span>Banheiro</button><button class="room-btn" data-room="yard"><span class="room-emoji">🌳</span>Quintal</button><button class="room-btn" data-room="games"><span class="room-emoji">🎮</span>Sala de jogos</button></div></div>
-<div class="card"><h2>🐾 Escolha um SKZOO</h2><div class="roster" id="roster"></div></div>
-<div class="card"><h2>✨ Interagir</h2><div class="actions"><button data-action="wave">👋 Oi!</button><button data-action="play">🧸 Brincar</button><button data-action="rest">😴 Descansar</button><button data-action="dance">🎵 Dançar</button></div><p class="note" id="actionNote">Selecione um personagem para começar.</p></div>
-</aside></main>
-<footer class="bottom"><span>Protótipo visual interativo · <strong>SKZOO House</strong></span><span>📱 Melhor na horizontal</span></footer>
+<nav class="room-dock" id="rooms" aria-label="Trocar cômodo">
+<button class="room-btn active" data-room="living" aria-label="Sala de estar" title="Sala de estar"><span>🛋️</span></button>
+<button class="room-btn" data-room="bedroom" aria-label="Quartos" title="Quartos"><span>🛏️</span></button>
+<button class="room-btn" data-room="kitchen" aria-label="Cozinha" title="Cozinha"><span>🍳</span></button>
+<button class="room-btn" data-room="bathroom" aria-label="Banheiro" title="Banheiro"><span>🚿</span></button>
+<button class="room-btn" data-room="yard" aria-label="Quintal" title="Quintal"><span>🌳</span></button>
+<button class="room-btn" data-room="games" aria-label="Sala de jogos" title="Sala de jogos"><span>🎮</span></button>
+</nav></main>
 </div>
 <script>
 const mascots=[
@@ -91,9 +108,5 @@ function setRoom(key){room=key;const r=roomInfo[key];document.getElementById('sc
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1700)}
 document.querySelectorAll('.room-btn').forEach(b=>b.onclick=()=>setRoom(b.dataset.room));
 document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>{const m=mascots.find(x=>x.id===selected);const actions={wave:'👋 '+m.name+' acenou para você!',play:'🧸 '+m.name+' começou a brincar!',rest:'😴 '+m.name+' está descansando...',dance:'🎵 '+m.name+' começou a dançar!'};document.getElementById('actionNote').textContent=actions[b.dataset.action];showToast(actions[b.dataset.action]);const el=charsEl.querySelector('[data-id="'+m.id+'"]');if(el){el.animate([{transform:'scale(1) rotate(0)'},{transform:'scale(1.22) rotate(-8deg)'},{transform:'scale(1) rotate(8deg)'},{transform:'scale(1) rotate(0)'}],{duration:650});}});
-document.getElementById('zoomIn').onclick=()=>{zoom=Math.min(1.22,zoom+.07);scene.style.transform='scale('+zoom+')';showToast('Câmera aproximada')};
-document.getElementById('zoomOut').onclick=()=>{zoom=Math.max(.88,zoom-.07);scene.style.transform='scale('+zoom+')';showToast('Câmera afastada')};
-document.getElementById('resetCamera').onclick=()=>{zoom=1;scene.style.transform='scale(1)';showToast('Câmera centralizada')};
-document.getElementById('settings').onclick=()=>showToast('Configurações serão adicionadas em uma próxima etapa.');
 renderCharacters();renderRoster();
 </script></body></html>
